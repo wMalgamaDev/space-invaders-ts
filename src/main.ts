@@ -1,9 +1,12 @@
+//Canvas
 const gameWindow = document.getElementById('gameWindow') as HTMLCanvasElement;
 const ctx = gameWindow.getContext('2d');
 
+//Texture Loading
 const img: HTMLImageElement = new Image();
 img.src = "./public/assets/atlas.png";
 
+//Game Loop
 let timeDelta = 0;
 let prevTime = performance.now()/1000;
 
