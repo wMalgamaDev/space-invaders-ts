@@ -4,20 +4,12 @@ const ctx = gameWindow.getContext('2d');
 
 //Input
 let keys: {[key: string]: boolean} = {};
-let dir: boolean;
+let lastKey: string;
+let dir = 0;
 
 window.addEventListener('keydown', (e) => {
     keys[e.code] = true;
-    switch(e.code){
-        case "KeyA":
-            dir = false;
-            break;
-        case "KeyD":
-            dir = true;
-            break;
-        default:
-            break;
-    }
+    lastKey = e.code;
 });
 window.addEventListener('keyup', (e) => {
     keys[e.code] = false;
@@ -36,6 +28,11 @@ function gameLoop(time: number): void{
     timeDelta = currTime-prevTime;
     prevTime = currTime;
     //console.log(timeDelta);
+
+    if(!(keys["KeyA"] && keys["KeyD"])){
+        lastKey = keys["KeyA"] || keys["KeyD"] ? (keys["KeyA"] ? "KeyA" : "KeyD") : "";
+    }
+    dir = lastKey === "KeyA" || lastKey === "KeyD" ? (lastKey === "KeyA" ? -1 : 1) : 0;
     requestAnimationFrame(gameLoop);
 }
 
