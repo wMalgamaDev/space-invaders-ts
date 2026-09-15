@@ -26,7 +26,7 @@ let timeDelta = 0;
 let prevTime = performance.now()/1000;
 
 function gameLoop(time: number): void{
-    ctx?.clearRect(player.pos.x, player.pos.y, player.img.w, player.img.h);
+    ctx?.clearRect(Math.floor(player.pos.x), player.pos.y, player.img.w, player.img.h);
 
     const currTime = time/1000;
     timeDelta = currTime-prevTime;
@@ -41,7 +41,7 @@ function gameLoop(time: number): void{
     player.pos.x = player.pos.x + dir * player.vel * timeDelta;
 
     ctx?.drawImage(img, player.img.sx, player.img.sy, player.img.w, player.img.h,
-        player.pos.x, player.pos.y, player.img.w, player.img.h);
+        Math.floor(player.pos.x), player.pos.y, player.img.w, player.img.h);
 
     requestAnimationFrame(gameLoop);
 }
