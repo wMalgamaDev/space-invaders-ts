@@ -4,3 +4,7 @@ export interface Sprite {
     w: number;
     h: number;
 }
+export interface Pos {
+    x: number;
+    y: number;
+}
