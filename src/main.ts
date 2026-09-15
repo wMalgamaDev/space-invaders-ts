@@ -1,3 +1,5 @@
+import { Player } from "./classes.js";
+
 //Canvas
 const gameWindow = document.getElementById('gameWindow') as HTMLCanvasElement;
 const ctx = gameWindow.getContext('2d');
@@ -24,6 +26,8 @@ let timeDelta = 0;
 let prevTime = performance.now()/1000;
 
 function gameLoop(time: number): void{
+    ctx?.clearRect(player.pos.x, player.pos.y, player.img.w, player.img.h);
+
     const currTime = time/1000;
     timeDelta = currTime-prevTime;
     prevTime = currTime;
@@ -33,7 +37,24 @@ function gameLoop(time: number): void{
         lastKey = keys["KeyA"] || keys["KeyD"] ? (keys["KeyA"] ? "KeyA" : "KeyD") : "";
     }
     dir = lastKey === "KeyA" || lastKey === "KeyD" ? (lastKey === "KeyA" ? -1 : 1) : 0;
+
+    player.pos.x = player.pos.x + dir * player.vel * timeDelta;
+
+    ctx?.drawImage(img, player.img.sx, player.img.sy, player.img.w, player.img.h,
+        player.pos.x, player.pos.y, player.img.w, player.img.h);
+
     requestAnimationFrame(gameLoop);
 }
 
+const player = new Player({
+    x: gameWindow.width/2 - 4,
+    y: 160,
+},
+    75,
+{
+    sx: 0,
+    sy: 0,
+    w: 8,
+    h: 8
+});
 requestAnimationFrame(gameLoop);
