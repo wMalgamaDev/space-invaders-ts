@@ -2,7 +2,8 @@ import { Player } from "./classes.js";
 
 //Canvas
 const gameWindow = document.getElementById('gameWindow') as HTMLCanvasElement;
-const ctx = gameWindow.getContext('2d');
+const ctx = gameWindow.getContext('2d') as CanvasRenderingContext2D;
+ctx.imageSmoothingEnabled = false;
 
 //Input
 let keys: {[key: string]: boolean} = {};
