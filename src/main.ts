@@ -8,7 +8,6 @@ ctx.imageSmoothingEnabled = false;
 //Input
 let keys: {[key: string]: boolean} = {};
 let lastKey: string;
-let dir = 0;
 
 window.addEventListener('keydown', (e) => {
     keys[e.code] = true;
@@ -27,7 +26,7 @@ let timeDelta = 0;
 let prevTime = performance.now()/1000;
 
 function gameLoop(time: number): void{
-    ctx?.clearRect(Math.floor(player.pos.x), player.pos.y, player.img.w, player.img.h);
+    ctx?.clearRect(0, 0, gameWindow.width, gameWindow.height);
 
     const currTime = time/1000;
     timeDelta = currTime-prevTime;
@@ -37,12 +36,10 @@ function gameLoop(time: number): void{
     if(!(keys["KeyA"] && keys["KeyD"])){
         lastKey = keys["KeyA"] || keys["KeyD"] ? (keys["KeyA"] ? "KeyA" : "KeyD") : "";
     }
-    dir = lastKey === "KeyA" || lastKey === "KeyD" ? (lastKey === "KeyA" ? -1 : 1) : 0;
+    player.dir = lastKey === "KeyA" || lastKey === "KeyD" ? (lastKey === "KeyA" ? -1 : 1) : 0;
 
-    player.pos.x = player.pos.x + dir * player.vel * timeDelta;
-
-    ctx?.drawImage(img, player.img.sx, player.img.sy, player.img.w, player.img.h,
-        Math.floor(player.pos.x), player.pos.y, player.img.w, player.img.h);
+    player.move(timeDelta);
+    player.render(ctx, img);
 
     requestAnimationFrame(gameLoop);
 }
@@ -52,6 +49,7 @@ const player = new Player({
     y: 160,
 },
     75,
+    0,
 {
     sx: 0,
     sy: 0,
