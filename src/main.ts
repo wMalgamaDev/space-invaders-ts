@@ -1,21 +1,10 @@
 import { Player } from "./classes.js";
+import { dirInput } from "./input.js";
 
 //Canvas
 const gameWindow = document.getElementById('gameWindow') as HTMLCanvasElement;
 const ctx = gameWindow.getContext('2d') as CanvasRenderingContext2D;
 ctx.imageSmoothingEnabled = false;
-
-//Input
-let keys: {[key: string]: boolean} = {};
-let lastKey: string;
-
-window.addEventListener('keydown', (e) => {
-    keys[e.code] = true;
-    lastKey = e.code;
-});
-window.addEventListener('keyup', (e) => {
-    keys[e.code] = false;
-});
 
 //Texture Loading
 const img: HTMLImageElement = new Image();
@@ -33,11 +22,7 @@ function gameLoop(time: number): void{
     prevTime = currTime;
     //console.log(timeDelta);
 
-    if(!(keys["KeyA"] && keys["KeyD"])){
-        lastKey = keys["KeyA"] || keys["KeyD"] ? (keys["KeyA"] ? "KeyA" : "KeyD") : "";
-    }
-    player.dir = lastKey === "KeyA" || lastKey === "KeyD" ? (lastKey === "KeyA" ? -1 : 1) : 0;
-
+    player.dir = dirInput();
     player.move(timeDelta);
     player.render(ctx, img);
 
