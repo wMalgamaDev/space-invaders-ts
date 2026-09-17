@@ -10,12 +10,25 @@ ctx.imageSmoothingEnabled = false;
 const img: HTMLImageElement = new Image();
 img.src = "./public/assets/atlas.png";
 
+const player = new Player({
+    x: gameWindow.width/2 - 4,
+    y: 160,
+},
+    75,
+    0,
+{
+    sx: 0,
+    sy: 0,
+    w: 8,
+    h: 8
+});
+
 //Game Loop
 let timeDelta = 0;
 let prevTime = performance.now()/1000;
 
 function gameLoop(time: number): void{
-    ctx?.clearRect(0, 0, gameWindow.width, gameWindow.height);
+    ctx.clearRect(0, 0, gameWindow.width, gameWindow.height);
 
     const currTime = time/1000;
     timeDelta = currTime-prevTime;
@@ -29,16 +42,5 @@ function gameLoop(time: number): void{
     requestAnimationFrame(gameLoop);
 }
 
-const player = new Player({
-    x: gameWindow.width/2 - 4,
-    y: 160,
-},
-    75,
-    0,
-{
-    sx: 0,
-    sy: 0,
-    w: 8,
-    h: 8
-});
+//Init
 requestAnimationFrame(gameLoop);
