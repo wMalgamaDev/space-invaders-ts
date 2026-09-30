@@ -1,6 +1,6 @@
 import type { Pos, Sprite } from "./interfaces.js";
 
-export class Player{
+export class Entity{
     pos: Pos;
     vel: number;
     dir: number;
@@ -18,4 +18,7 @@ export class Player{
     move(dt: number){
         this.pos.x = this.pos.x + this.dir * this.vel * dt;
     }
+}
+
+export class Player extends Entity{
 }
