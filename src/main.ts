@@ -1,4 +1,4 @@
-import { Player } from "./classes.js";
+import { Entity, Player } from "./classes.js";
 import { dirInput } from "./input.js";
 
 //Canvas
@@ -10,21 +10,10 @@ ctx.imageSmoothingEnabled = false;
 const img: HTMLImageElement = new Image();
 img.src = "./public/assets/atlas.png";
 
-const player = new Player({
-    x: gameWindow.width/2 - 4,
-    y: 160,
-},
-    75,
-{
-    x: 0,
-    y: 0
-},
-{
-    sx: 0,
-    sy: 0,
-    w: 8,
-    h: 8
-});
+let entities = [] as Array<Entity>;
+entities.push(
+    new Player({x: gameWindow.width/2 - 4, y: 160},75,{x: 0, y: 0},{sx: 0, sy: 0, w: 8, h: 8})
+);
 
 //Game Loop
 let timeDelta = 0;
@@ -38,9 +27,14 @@ function gameLoop(time: number): void{
     prevTime = currTime;
     //console.log(timeDelta);
 
-    player.dir.x = dirInput();
-    player.move(timeDelta);
-    player.render(ctx, img);
+    entities.forEach((entity) => {
+        entity.render(ctx, img);
+    });
+
+    if(entities[0]){
+        entities[0].dir.x = dirInput();
+        entities[0].moveX(timeDelta);
+    }
 
     requestAnimationFrame(gameLoop);
 }
