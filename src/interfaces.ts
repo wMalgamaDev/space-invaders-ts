@@ -4,7 +4,7 @@ export interface Sprite {
     w: number;
     h: number;
 }
-export interface Pos {
+export interface Vec2 {
     x: number;
     y: number;
 }

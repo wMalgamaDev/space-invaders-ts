@@ -15,7 +15,10 @@ const player = new Player({
     y: 160,
 },
     75,
-    0,
+{
+    x: 0,
+    y: 0
+},
 {
     sx: 0,
     sy: 0,
@@ -35,7 +38,7 @@ function gameLoop(time: number): void{
     prevTime = currTime;
     //console.log(timeDelta);
 
-    player.dir = dirInput();
+    player.dir.x = dirInput();
     player.move(timeDelta);
     player.render(ctx, img);
 

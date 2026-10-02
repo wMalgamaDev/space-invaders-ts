@@ -1,11 +1,11 @@
-import type { Pos, Sprite } from "./interfaces.js";
+import type { Vec2, Sprite} from "./interfaces.js";
 
 export class Entity{
-    pos: Pos;
+    pos: Vec2;
     vel: number;
-    dir: number;
+    dir: Vec2;
     img: Sprite;
-    constructor(pos: Pos, vel: number, dir: number, img: Sprite){
+    constructor(pos: Vec2, vel: number, dir: Vec2, img: Sprite){
         this.pos = pos;
         this.vel = vel;
         this.dir = dir;
