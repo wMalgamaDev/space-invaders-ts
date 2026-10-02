@@ -15,8 +15,15 @@ export class Entity{
         ctx.drawImage(img, this.img.sx, this.img.sy, this.img.w, this.img.h,
         Math.floor(this.pos.x), this.pos.y, this.img.w, this.img.h);
     }
+    moveX(dt: number){
+        this.pos.x = this.pos.x + this.dir.x * this.vel * dt;
+    }
+    moveY(dt: number){
+        this.pos.y = this.pos.y + this.dir.y * this.vel * dt;
+    }
     move(dt: number){
-        this.pos.x = this.pos.x + this.dir * this.vel * dt;
+        this.moveX(dt);
+        this.moveY(dt);
     }
 }
 
